@@ -6,8 +6,47 @@
     --black-main: #000000;
 }
 
+*{
+    font-size: 16px;
+}
+
 body {
     background-color: var(--gray-100);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 80px;
+    background-color: var(--blue-strong);
+    z-index: 1000;
+}
+
+.brand {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.nav-list {
+    display: flex;
+    gap: 24px;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: var(--gray-100);
+    font-size: 1rem;
+}
+
+main {
+    margin-top: 80px; 
 }
 
 h1{

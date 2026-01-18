@@ -13,28 +13,34 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body class="container-fluid justify-content-center align-items-center">
+<body>
 
-    <header class="container-fluid row">
-        <nav>
+    <header>
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center px-4">
 
-            <div>
-                <a href="#">Ado store</a>
+                <div class="col-auto header-left">
+                    <span class="brand">adoStore</span>
+
+                    <nav>
+                        <ul class="nav-list">
+                            <li><a href="#">Inicio</a></li>
+                            <li><a href="#">Contacto</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
-
-            <ul>
-                <li>
-                    <a href="#">Hola</a>
-                    <a href="#">Hola</a>
-                </li>
-            </ul>
-        </nav>
+        </div>
     </header>
 
-    <div class="row col-12 margin-20">
-        {% block content %}
-        {% endblock %}
-    </div>
+
+    <main class="container-fluid">
+        <div class="row col-12 margin-20">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
 
 </body>
 
