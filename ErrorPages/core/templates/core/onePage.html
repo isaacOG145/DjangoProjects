@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}One Page{% endblock %}
 
-{% block onePage %}
+{% block content %}
 
 
 <h1>Hola</h1>
+<img src="{% static 'img/Adomination.jpg' %}" alt="My image">
 
 {% endblock %}
