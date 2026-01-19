@@ -19,21 +19,26 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 80px;
+    padding: .5rem 1rem;
     background-color: var(--blue-strong);
     z-index: 1000;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
 .brand {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #ffffff;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--gray-100);
 }
 
 .nav-list {
     display: flex;
-    gap: 24px;
-
+    gap: 20px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -45,10 +50,12 @@ header {
     font-size: 1rem;
 }
 
+
 main {
     margin-top: 80px; 
 }
 
 h1{
+    text-align: center;
     color: #000000;
 }

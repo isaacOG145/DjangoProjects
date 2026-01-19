@@ -16,23 +16,24 @@
 <body>
 
     <header>
-        <div class="container-fluid h-100">
-            <div class="row h-100 align-items-center px-4">
+    <div class="container-fluid h-100">
+        <div class="row h-100 align-items-center px-4">
 
-                <div class="col-auto header-left">
-                    <span class="brand">adoStore</span>
+            <div class="col-auto header-left">
+                <span class="brand">AdoStore</span>
 
-                    <nav>
-                        <ul class="nav-list">
-                            <li><a href="#">Inicio</a></li>
-                            <li><a href="#">Contacto</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                <nav>
+                    <ul class="nav-list">
+                        <li><a href="{% url 'index' %}">Inicio</a></li>
+                        <li><a href="{% url 'onePage' %}">Detalles</a></li>
+                    </ul>
+                </nav>
+            </div>
 
             </div>
         </div>
     </header>
+
 
 
     <main class="container-fluid">

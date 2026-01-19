@@ -18,14 +18,14 @@ const descripciones = [
 ];
 
 const imagenes = [
-        "{% static 'img/1.png' %}",
-        "{% static 'img/2.png' %}",
-        "{% static 'img/3.png' %}",
-        "{% static 'img/4.png' %}",
-        "{% static 'img/5.png' %}",
-        "{% static 'img/6.png' %}",
-        "{% static 'img/7.png' %}",
-        "{% static 'img/8.png' %}",
-        "{% static 'img/9.png' %}",
-        "{% static 'img/10.png' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
+        "{% static 'img/Adomination.jpg' %}",
 ];
