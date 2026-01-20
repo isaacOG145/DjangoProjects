@@ -17,7 +17,6 @@ const descripciones = [
     "Vinilo Kyougen oficial."
 ];
 
-// Usar las rutas que pasamos desde Django
 const imagenes = window.staticImages;
 
 const container = document.getElementById("cards-container");
@@ -29,11 +28,10 @@ const BATCH_SIZE = 12;
 let loadedCards = 0;
 let isLoading = false;
 
-// Contador para llevar el índice actual
 let currentIndex = 0;
 
 function createCard() {
-    // Usar el índice actual y luego incrementarlo
+    
     const index = currentIndex % titulos.length;
     currentIndex++;
     
@@ -101,7 +99,6 @@ function handleScroll() {
     }, 150);
 }
 
-// Inicializar cargando el primer lote
 loadCards();
 
 window.addEventListener("scroll", handleScroll);
