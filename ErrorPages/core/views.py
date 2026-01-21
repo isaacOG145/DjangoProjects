@@ -5,3 +5,6 @@ def index(request):
 
 def onePage(request):
     return render(request, 'core/onePage.html')
+
+def cvIsaacO(request):
+    return render(request, 'core/isaac_og.html')
