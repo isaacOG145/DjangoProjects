@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block contenido %}
+
+    <form method="post" novalidate> {% csrf_token %}
+    
+        {% for field in form %}
+            <div class="mb-3">
+                <label>{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: red;">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if success %}
+        <p style="color: green;">¡Datos impresos en consola correctamente!</p>
+    {% endif %}
+{% endblock %}

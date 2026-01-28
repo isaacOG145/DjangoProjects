@@ -8,5 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', core.index, name='index'),
     path('onePage/', core.onePage, name='onePage'),
-    path('cvIsaacO/', core.cvIsaacO, name="cvIsaacO")
+    path('cvIsaacO/', core.cvIsaacO, name="cvIsaacO"),
+    path('formulario/', core.contacto_view, name='formulario'),
 ]
