@@ -26,8 +26,8 @@ def contacto_view(request):
             
             print(f"Nombre: {nombre}\nEmail: {email}\nMensaje: {mensaje}")
             
-            return render(request, 'alumno/informacion.html', {'form': form, 'success': True})
+            return render(request, 'core/formulario.html', {'form': form, 'success': True})
     else:
         form = ContactoForm()
     
-    return render(request, 'alumno/informacion.html', {'form': form})
+    return render(request, 'core/formulario.html', {'form': form})
