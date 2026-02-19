@@ -30,4 +30,7 @@ def reportes(request):
 
 def obtener_reportes(request):
 
-    return render(request, "Obtener_reportes.html")
+    reportes = ErrorReport.objects.all().values()
+
+    return JsonResponse(list(reportes), safe=False)
+

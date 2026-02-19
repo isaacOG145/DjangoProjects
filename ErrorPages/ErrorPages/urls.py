@@ -13,5 +13,5 @@ urlpatterns = [
     path('cvIsaacO/', core.cvIsaacO, name="cvIsaacO"),
     path('formulario/', core.contacto_view, name='formulario'),
     path('reportes-error/', errors.reportes, name='errores' ),
-    path('obtener-reportes/', errors.obtener_reportes, name='obtener-reportes')
+    path('obtener-reportes/', errors.obtener_reportes, name='obtener_reportes')
 ]

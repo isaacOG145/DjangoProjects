@@ -3,16 +3,16 @@ from django.db import models
 class ErrorReport(models.Model):
 
     titulo = models.CharField(
-        max_length=150,
-        blank=True,
-        null=True
+    max_length=150,
+    blank=False,
+    null=False
     )
     descripcion = models.TextField(
         blank=False,
         null=False
     )
     tipo_error = models.CharField(
-        max_length=100,
+        max_length=10,
         blank=False,
         null=False
     )
