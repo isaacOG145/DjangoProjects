@@ -1,18 +1,13 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from core.models import Contacto 
 
-class ContactoForm(forms.Form):
+class ContactoForm(forms.ModelForm):
 
-    nombre = forms.CharField(
-        min_length=3,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tu nombre'})
-    )
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'correo@ejemplo.com'})
-    )
-    mensaje = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
-    )
+    class Meta:
+        model = Contacto
+        fields = ['nombre', 'email', 'mensaje']
+    
 
     # Validación de Backend
     def clean_mensaje(self):

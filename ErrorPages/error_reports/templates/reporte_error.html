@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Reporte de Error{% endblock %}
+
+{% block content %}
+
+<div class="col-md-6 mx-auto">
+
+    <h2 class="mb-4">Reporte de Error</h2>
+
+    <form id="errorForm" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">
+            Enviar Reporte
+        </button>
+    </form>
+
+    <div id="respuesta" class="mt-3"></div>
+
+</div>
+
+<script>
+document.getElementById("errorForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("", {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        let respuestaDiv = document.getElementById("respuesta");
+
+        if(data.status === "ok"){
+            
+            respuestaDiv.innerHTML = `
+                <div class="alert alert-success">
+                    ${data.mensaje}
+                </div>
+            `;
+
+            document.getElementById("errorForm").reset();
+        } else {
+            respuestaDiv.innerHTML = `
+                <div class="alert alert-danger">
+                    ${data.mensaje}
+                </div>
+            `;
+            console.log(data.errors);
+        }
+
+    });
+});
+</script>
+
+{% endblock %}
