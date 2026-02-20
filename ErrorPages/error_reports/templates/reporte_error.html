@@ -100,18 +100,27 @@ function cargarReportes() {
         data.forEach(reporte => {
 
             let filaColor = "";
+            let badgeClass = "";
 
-            if(reporte.tipo_error === "Familia 400"){
+            let codigo = parseInt(reporte.tipo_error);
+
+            if(codigo >= 400 && codigo < 500){
                 filaColor = "table-warning";
+                badgeClass = "bg-warning text-dark border border-dark";
             }
-            else if(reporte.tipo_error === "Familia 500"){
+            else if(codigo >= 500 && codigo < 600){
                 filaColor = "table-danger";
+                badgeClass = "bg-danger text-white border border-dark";
             }
+            else {
+                badgeClass = "bg-secondary text-white";
+            }
+
 
             tabla.innerHTML += `
                 <tr class="${filaColor}">
                     <td>${reporte.titulo}</td>
-                    <td><span class="badge bg-secondary">${reporte.tipo_error}</span></td>
+                    <td><span class="badge ${badgeClass} fs-6 px-2 py-1 rounded-pill shadow-sm">${reporte.tipo_error}</span></td>
                     <td>${reporte.url}</td>
                     <td>${reporte.metodo_http}</td>
                     <td>${new Date(reporte.fecha_reporte).toLocaleString()}</td>
