@@ -16,6 +16,6 @@ urlpatterns = [
     path('obtener-reportes/', errors.obtener_reportes, name='obtener_reportes'),
     path('obtener-producto/', productos.api_lista_productos, name='obtener_productos'),
     path('agregar-productos/', productos.api_crear_productos, name='crear_productos'),
-    path('editar-productos/', productos.api_editar_producto, name="editar_producto"),
-    path('eliminar-producto/', productos.api_eliminar_producto, name="eliminar_producto")
+    path('editar-productos/<int:pk>/', productos.api_editar_producto, name="editar_producto"),
+    path('eliminar-producto/<int:pk>/', productos.api_eliminar_producto, name="eliminar_producto")
 ]

@@ -8,10 +8,6 @@ class Producto(models.Model):
     categoria = models.CharField(max_length=20)
     descripcion = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return super().__str__()
-
-
     def vender():
         pass
 
