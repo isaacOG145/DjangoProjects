@@ -1,10 +1,11 @@
 import './App.css'
+import Product from './views/products';
 
 function App() {
 
   return (
     <>
-        
+        <Product/>
     </>
   )
 }
