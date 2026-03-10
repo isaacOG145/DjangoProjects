@@ -189,11 +189,11 @@ export default function product() {
   ];
 
   return (
-    <div className="container mt-5">
+    <div className="container-fluid mt-5">
       <Toaster position="top-right" reverseOrder={false} />
 
       <div className="row">
-        <div className="col-md-4 mb-4">
+        <div className="col-md-4 mb-6">
           <div className="card shadow-sm">
             <div className="card-header bg-primary text-white">
               <h5 className="mb-0">
@@ -209,6 +209,7 @@ export default function product() {
                   <input
                     type="text"
                     name="nombre"
+                    placeholder="Ej.Sabritas"
                     className={`form-control ${errors.nombre ? "is-invalid" : ""}`}
                     value={formData.nombre}
                     onChange={handleChange}
@@ -229,7 +230,7 @@ export default function product() {
                   <input
                     type="number"
                     name="precio"
-                    placeholder="Ej. $10.00"
+                    placeholder="Ej.10.00"
                     className={`form-control ${errors.precio ? "is-invalid" : ""}`}
                     value={formData.precio}
                     onChange={handleChange}
@@ -251,6 +252,7 @@ export default function product() {
                     name="stock"
                     className={`form-control ${errors.stock ? "is-invalid" : ""}`}
                     value={formData.stock}
+                    placeholder="Ej.100"
                     onChange={handleChange}
                     required
                     disabled={saving}
@@ -268,6 +270,7 @@ export default function product() {
                   <input
                     type="text"
                     name="categoria"
+                    placeholder="Ej.frituras"
                     className={`form-control ${errors.categoria ? "is-invalid" : ""}`}
                     value={formData.categoria}
                     onChange={handleChange}
@@ -287,6 +290,7 @@ export default function product() {
                   <input
                     type="text"
                     name="descripcion"
+                    placeholder="Ej.Paquete chico de frituras"
                     className={`form-control ${errors.descripcion ? "is-invalid" : ""}`}
                     value={formData.descripcion}
                     onChange={handleChange}
