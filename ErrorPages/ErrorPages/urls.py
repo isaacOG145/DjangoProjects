@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from core import views as core
 from error_reports import views as errors
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,3 +15,6 @@ urlpatterns = [
     path('obtener-reportes/', errors.obtener_reportes, name='obtener_reportes'),
     path('', include('products.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

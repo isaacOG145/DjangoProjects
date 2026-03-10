@@ -9,20 +9,23 @@ import {
   deleteProducts,
 } from "../services/api";
 
-export default function product() {
+export default function Product() {
   const [errors, setErrors] = useState({});
   const [products, setProducts] = useState([]);
   const [isEditingId, setIsEditingId] = useState(null);
   const [filter, setFilter] = useState("");
   const [chargeTable, setChargeTable] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [formData, setFormData] = useState({
+  const initialState = {
     nombre: "",
     precio: "",
     stock: "",
     categoria: "",
     descripcion: "",
-  });
+    foto: null,
+    foto_para_binario: null,
+  };
+  const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
     chargeProducts();
@@ -43,10 +46,18 @@ export default function product() {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    
+    if(e.target.type === "file"){
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.files[0],
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -56,17 +67,33 @@ export default function product() {
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 
+    const dataToSend = new FormData();
+    
+    dataToSend.append("nombre", formData.nombre);
+    dataToSend.append("precio", formData.precio);
+    dataToSend.append("stock", formData.stock);
+    dataToSend.append("categoria", formData.categoria);
+    dataToSend.append("descripcion", formData.descripcion);
+
+    if(formData.foto instanceof File){
+      dataToSend.append("foto", formData.foto);
+    }
+    if(formData.foto_para_binario instanceof File){
+      dataToSend.append("foto_para_binario", formData.foto_para_binario);
+    }
+    
     try {
       if (isEditingId) {
-        await updateProducts(isEditingId, formData);
+        await updateProducts(isEditingId, dataToSend);
         toast.success("Producto actualizado correctamente");
       } else {
-        await createProducts(formData);
+        await createProducts(dataToSend);
         toast.success("Producto registrado exitosamente");
       }
 
-      setFormData({});
+      setFormData(initialState);
       setIsEditingId(null);
+      document.getElementById("form-productos").reset();
       chargeProducts();
     } catch (error) {
       console.error("Error al guardar: ", error);
@@ -89,6 +116,8 @@ export default function product() {
       stock: products.stock,
       categoria: products.categoria,
       descripcion: products.descripcion,
+      foto: null,
+      foto_para_binario: null,
     });
     setIsEditingId(products.id);
     window.scrollTo({
@@ -149,7 +178,6 @@ export default function product() {
   );
 
   const columnas = [
-    //cambiar por mi proyecto
     { name: "Nombre", selector: (row) => row.nombre, sortable: true },
     { name: "Precio", selector: (row) => row.precio, sortable: true },
     { name: "Stock", selector: (row) => row.stock, sortable: true },
@@ -159,7 +187,32 @@ export default function product() {
       selector: (row) => row.descripcion,
       soportable: true,
     },
-
+    {
+      name: "Foto (Media)",
+      cell: (row) =>
+        row.foto ? (
+          <img
+            src={row.foto}
+            alt="Carpeta media"
+            width="50"
+            height="50"
+            style={{ objectFit: 'cover', borderRadius: '5px'}}
+          />
+        ) : "N/A"
+    },
+    {
+      name: "Foto para binario",
+      cell: (row) =>
+        row.foto_base64_display ? (
+          <img
+            src={row.foto_base64_display}
+            alt="Base de datos"
+            width="50"
+            height="50"
+            style={{ objectFit: 'cover', borderRadius: '5px'}}
+          />
+        ) : "N/A"
+    },
     {
       name: "Acciones",
       cell: (row) => (
@@ -202,7 +255,7 @@ export default function product() {
             </div>
 
             <div className="card-body">
-              <form onSubmit={handleSubmit}>
+              <form id="form-productos" onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label className="form-label">Nombre</label>
 
@@ -305,6 +358,40 @@ export default function product() {
                   )}
                 </div>
 
+                <div className="mb-3">
+                  <label className="form-label">Foto (Carpeta Media)</label>
+                  <input
+                    type="file"
+                    name="foto"
+                    accept="image/jpeg"
+                    className={`form-control ${errors.foto ? "is-invalid" : ""}`}
+                    onChange={handleChange}
+                    disabled={saving}
+                  />
+                  {errors.foto && (
+                    <div className="invalid-feedback">
+                      {errors.foto.join(", ")}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Foto (Base de Datos)</label>
+                  <input
+                    type="file"
+                    name="foto_para_binario"
+                    accept="image/jpeg"
+                    className={`form-control ${errors.foto_para_binario ? "is-invalid" : ""}`}
+                    onChange={handleChange}
+                    disabled={saving}
+                  />
+                  {errors.foto_para_binario && (
+                    <div className="invalid-feedback">
+                      {errors.foto_para_binario.join(", ")}
+                    </div>
+                  )}
+                </div>
+
                 <div className="d-grid gap-2">
                   <button
                     type="submit"
@@ -334,14 +421,9 @@ export default function product() {
                       className="btn btn-secondary"
                       onClick={() => {
                         setIsEditingId(null);
-                        setFormData({
-                          nombre: "",
-                          precio: "",
-                          stock: "",
-                          categoria: "",
-                          descripcion: "",
-                        });
+                        setFormData(initialState);
                         setErrors({});
+                        document.getElementById("form-productos").reset();
                       }}
                       disabled={saving}
                     >

@@ -7,23 +7,11 @@ export const getProducts = () => {
 };
 
 export const createProducts = (data) => {
-  const formData = new FormData();
-
-  for (const key in data) {
-    formData.append(key, data[key]);
-  }
-
-  return axios.post(`${BASE_URL}`, formData);
+  return axios.post(`${BASE_URL}`, data);
 };
 
 export const updateProducts = (id, data) => {
-  const formData = new FormData();
-
-  for (const key in data) {
-    formData.append(key, data[key]);
-  }
-
-  return axios.put(`${BASE_URL}${id}/`, formData);
+  return axios.put(`${BASE_URL}${id}/`, data);
 };
 
 export const deleteProducts = (id) => {
