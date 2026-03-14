@@ -1,16 +1,5 @@
-import os
 from pathlib import Path
-from dotenv import load_dotenv
-
-
-load_dotenv()
-
-MYSQL_HOST = os.getenv('MYSQL_HOST')
-MYSQL_USER = os.getenv('MYSQL_USER')
-MYSQL_PASS = os.getenv('MYSQL_PASS')
-MYSQL_PORT = os.getenv('MYSQL_PORT')
-DB_NAME = os.getenv('DB_NAME')
-
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +9,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@7p6jr^i0-5wixr)y9w-4j0f301xm3e5ef3$$y_tbfet&6l09w'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 #Configuracion de desarrollo
-ALLOWED_HOSTS = ['192.168.100.22', '127.0.0.1', '192.168.110.209']
+ALLOWED_HOSTS = ['192.168.100.22', '127.0.0.1', '192.168.110.209', 'localhost']
 
 # Application definition
 
@@ -41,6 +30,7 @@ INSTALLED_APPS = [
     'core',
     'error_reports',
     'products',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -80,11 +70,11 @@ WSGI_APPLICATION = 'ErrorPages.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': DB_NAME,
-        'USER': MYSQL_USER,
-        'PASSWORD': MYSQL_PASS,
-        'HOST': MYSQL_HOST,
-        'PORT': MYSQL_PORT,
+        'NAME': config('DB_NAME'),
+        'USER': config('MYSQL_USER'),
+        'PASSWORD': config('MYSQL_PASS'),
+        'HOST': config('MYSQL_HOST'),
+        'PORT': config('MYSQL_PORT'),
     }
 }
 
@@ -137,3 +127,29 @@ CORS_ALLOWED_ORIGINS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15), 
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  
+    'ROTATE_REFRESH_TOKENS': True, 
+    'BLACKLIST_AFTER_ROTATION': True,    
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,     
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+}
+
+
+AUTH_USER_MODEL = 'users.MyUser'

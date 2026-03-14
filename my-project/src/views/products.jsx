@@ -9,7 +9,7 @@ import {
   deleteProducts,
 } from "../services/api";
 
-export default function Product() {
+export default function Product({ onLogout }) {
   const [errors, setErrors] = useState({});
   const [products, setProducts] = useState([]);
   const [isEditingId, setIsEditingId] = useState(null);
